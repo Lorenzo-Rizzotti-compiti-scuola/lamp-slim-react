@@ -26,16 +26,23 @@ export default function Alunni(){
     setShowInsertForm(false);
   }
 
-  function fetchAlunni(){
-    fetch("http://localhost:8080/alunni", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setAlunni(data);
-        setLoading(false);
-      })
-      .catch((error) => console.log(error));
+//   function fetchAlunni(){
+//     fetch("http://localhost:8080/alunni", {
+//       method: "GET",
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setAlunni(data);
+//         setLoading(false);
+//       })
+//       .catch((error) => console.log(error));
+//   }
+
+  async function fetchAlunni(){
+    const response = await fetch("http://localhost:8080/alunni", { method: "GET"})
+    const alunni = await response.json();
+    setAlunni(alunni);
+    setLoading(false);
   }
 
   function handleInsertClick(){
