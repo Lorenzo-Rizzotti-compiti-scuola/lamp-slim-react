@@ -8,5 +8,6 @@ $app = AppFactory::create();
 
 $app->get('/alunni', "AlunniController:index");
 $app->delete('/alunni/{id}', "AlunniController:delete");
+$app->post('/alunni', "AlunniController:insert");
 
 $app->run();
