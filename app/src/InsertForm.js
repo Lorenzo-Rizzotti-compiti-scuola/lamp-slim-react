@@ -1,10 +1,19 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
-export default function InsertForm({reFetchAlunni}){
+export default function InsertForm({reFetchAlunni, alunno}){
 
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if(alunno !== null){
+      setNome(alunno.nome);
+      setCognome(alunno.cognome);
+    }
+  }, [alunno]);
+
+
 
   function handleNomeChange(e){
     setNome(e.target.value);
@@ -14,20 +23,25 @@ export default function InsertForm({reFetchAlunni}){
     setCognome(e.target.value);
   }
 
-  function handleSave(){
+  async function handleSave(){
     setLoading(true);
-    fetch(`http://localhost:8080/alunni`, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({nome: nome , cognome: cognome})
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        reFetchAlunni();
-        resetForm();
-        setLoading(false);
+    if (alunno === null){
+      await fetch(`http://localhost:8080/alunni`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({nome: nome , cognome: cognome})
       })
-      .catch((error) => console.log(error));
+    }else{
+      await fetch(`http://localhost:8080/alunni/${alunno.id}`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({nome: nome , cognome: cognome})
+      })
+    }
+    resetForm();
+    reFetchAlunni();
+    setLoading(false);
+  
   }
 
   function resetForm(){

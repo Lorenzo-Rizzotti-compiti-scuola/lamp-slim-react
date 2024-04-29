@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function AlunnoRow({alunno, refreshAlunni, removeAlunno}){
+export default function AlunnoRow({alunno, refreshAlunni, removeAlunno, setAlunno, setShowInsertForm}){
 
   const [edit, setEdit] = useState(false);
   const [nome, setNome] = useState(alunno.nome);
@@ -104,6 +104,7 @@ export default function AlunnoRow({alunno, refreshAlunni, removeAlunno}){
                 ):(
                   <div>
                     <button onClick={handleEdit}>Edit</button>
+                    <button onClick={() => {setAlunno(alunno); setShowInsertForm(true)}}>Edit 2</button>
                     <button onClick={handleDelete}>Delete</button>
                   </div>
                 )

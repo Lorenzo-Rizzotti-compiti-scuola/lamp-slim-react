@@ -7,6 +7,8 @@ export default function Alunni(){
   const [alunni, setAlunni] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showInsertForm, setShowInsertForm] = useState(false);
+  const [alunno, setAlunno] = useState(null);
+
 
   useEffect(() => {
     fetchAlunni();
@@ -40,6 +42,7 @@ export default function Alunni(){
 
   function handleInsertClick(){
     setShowInsertForm(!showInsertForm);
+    setAlunno(null);
   }
 
   return(
@@ -58,15 +61,15 @@ export default function Alunni(){
           )
           :
           (
-            alunni && alunni.map(alunno => (
-              <AlunnoRow removeAlunno={removeAlunno} refreshAlunni={refreshAlunni} alunno={alunno} key={alunno.id} />
+            alunni && alunni.map(a => (
+              <AlunnoRow removeAlunno={removeAlunno} refreshAlunni={refreshAlunni} alunno={a} key={a.id} setAlunno={setAlunno} setShowInsertForm={setShowInsertForm} />
             ))
           )}
         </table>
 
         <button onClick={handleInsertClick}>Inserisci nuovo alunno</button> 
         { showInsertForm &&
-          <InsertForm reFetchAlunni={reFetchAlunni}/> 
+          <InsertForm reFetchAlunni={reFetchAlunni} alunno={alunno}/> 
         }
       </div>
     </div> 
