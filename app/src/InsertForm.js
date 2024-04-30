@@ -13,8 +13,6 @@ export default function InsertForm({reFetchAlunni, alunno}){
     }
   }, [alunno]);
 
-
-
   function handleNomeChange(e){
     setNome(e.target.value);
   }
