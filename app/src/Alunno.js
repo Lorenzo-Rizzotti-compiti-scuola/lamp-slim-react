@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-export default function Alunno({alunno, caricaAlunni}){
+export default function Alunno({alunno, gestisciClick}){
 
     const [inConferma, setInConferma] = useState(false);
     const [eliminazione, setEliminazione] = useState(false);
@@ -9,7 +9,7 @@ export default function Alunno({alunno, caricaAlunni}){
         setEliminazione(true);
         const response = await fetch(`http://localhost:8080/alunni/${alunno.id}`, {method: "DELETE"});
         setEliminazione(true);
-        caricaAlunni();
+        gestisciClick();
     }
 
     function richiedeConferma(){
@@ -26,13 +26,13 @@ export default function Alunno({alunno, caricaAlunni}){
             :
             (
                 inConferma ?
-                    <span> - sei sicuro?
+                    <> - sei sicuro?
                         <button onClick={eliminaAlunno}>Si</button>
                         <button onClick={annullaConferma}>No</button>
-                    </span>
+                    </>
                 :
                     <button onClick={richiedeConferma}>
-                     Elimina
+                        Elimina
                     </button>
 
             )    
