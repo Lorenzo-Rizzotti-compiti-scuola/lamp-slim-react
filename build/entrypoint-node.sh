@@ -6,4 +6,4 @@ if [ ! -f package.json ]; then
   bun create vite . --template react-ts
 fi
 bun install
-bun run dev --port 3000
+bun run dev --port 3000 --host
